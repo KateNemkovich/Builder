@@ -1,0 +1,16 @@
+#IDE folders
+*.idea/
+
+#Project-specific folders
+*obj/
+*bin/
+*temp/
+
+#Project-specific files
+*/build.schema.json
+
+#User-specific files
+*.user
+
+#Temporary files
+~$*
