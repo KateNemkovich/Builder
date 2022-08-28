@@ -10,3 +10,6 @@ new EmailMessage()
     .AddBody("Научимся")
     .AddBody("Строить")
     .Send();
+    
+new EmailMessage()
+    .Send();

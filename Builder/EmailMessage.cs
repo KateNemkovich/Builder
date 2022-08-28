@@ -1,6 +1,6 @@
 ﻿namespace ConsoleApp3;
 
-public class EmailMessage
+public class EmailMessage:IToStage,ISubjectStage,IAddBodyStage,ISendStage
 {
     private readonly List<string> body = new();
     private string _from;
@@ -13,19 +13,19 @@ public class EmailMessage
         return this;
     }
 
-    public EmailMessage To(string to)
+    public ISubjectStage To(string to)
     {
         _to = to;
         return this;
     }
 
-    public EmailMessage SetSubject(string setSubject)
+    public IAddBodyStage SetSubject(string setSubject)
     {
         _setSubject = setSubject;
         return this;
     }
 
-    public EmailMessage AddBody(string addBody)
+    public IAddBodyStage AddBody(string addBody)
     {
         body.Add(addBody);
         return this;
@@ -35,8 +35,28 @@ public class EmailMessage
     {
         Console.WriteLine("От:" + _from);
         Console.WriteLine("Кому:" + _to);
-        Console.WriteLine("Тема:" + _setSubject);
+        Console.WriteLine("Тема:" + _setSubject.ToUpper());
         Console.WriteLine("Сообщение:");
         foreach (var item in body) Console.WriteLine(item);
     }
 }
+
+public interface IToStage
+{
+    ISubjectStage To(string to);
+}
+public interface ISubjectStage
+{
+    IAddBodyStage SetSubject (string setsubject);
+}
+
+ public interface IAddBodyStage:ISendStage
+{
+    IAddBodyStage AddBody (string addBody);
+        // ISendStage AddBody (string addBody);
+}
+public interface ISendStage
+{
+    public void Send();
+}
+
