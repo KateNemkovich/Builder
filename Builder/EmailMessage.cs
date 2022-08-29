@@ -1,4 +1,6 @@
-﻿namespace ConsoleApp3;
+﻿using System.Text;
+
+namespace ConsoleApp3;
 
 public class EmailMessage:IToStage,ISubjectStage,IAddBodyStage,ISendStage
 {
@@ -30,6 +32,12 @@ public class EmailMessage:IToStage,ISubjectStage,IAddBodyStage,ISendStage
         body.Add(addBody);
         return this;
     }
+    
+    public ISendStage AddBody(StringBuilder builder)
+    {
+        body.Add(builder.ToString());
+        return this;
+    }
 
     public void Send()
     {
@@ -52,9 +60,11 @@ public interface ISubjectStage
 
  public interface IAddBodyStage:ISendStage
 {
-    IAddBodyStage AddBody (string addBody);
-        // ISendStage AddBody (string addBody);
+   public IAddBodyStage AddBody (string addBody);
+   public ISendStage AddBody (StringBuilder builder);
+        
 }
+
 public interface ISendStage
 {
     public void Send();
